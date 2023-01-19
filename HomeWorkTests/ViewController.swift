@@ -16,6 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         loginTextField.delegate = self
         passwordTextField.delegate = self
+        
+        enterButton.isEnabled = true
     }
 
     @IBAction func pressEnterButton(_ sender: Any) {
