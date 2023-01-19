@@ -16,13 +16,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         loginTextField.delegate = self
         passwordTextField.delegate = self
-        
-        enterButton.isEnabled = true
     }
 
     @IBAction func pressEnterButton(_ sender: Any) {
-        loginModel(login: loginTextField.text!, password: passwordTextField.text!)
+        guard let login = loginTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        let enter = loginModel(login: login, password: password)
         
+        let alert = UIAlertController(title: enter.0 ? "Успех" : "Ошибка", message: enter.1, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

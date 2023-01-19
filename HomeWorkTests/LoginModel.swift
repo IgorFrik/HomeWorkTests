@@ -7,38 +7,44 @@
 
 import Foundation
 
-func loginModel(login: String, password: String) -> String{
+func loginModel(login: String, password: String) -> (Bool, String){
     let login = login
     let password = password
+    var error = ""
     
-    func isValidLogin() -> Bool {
+    func isValidLogin() -> (Bool, String) {
         let loginRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let loginPred = NSPredicate(format:"SELF MATCHES %@", loginRegEx)
-        return loginPred.evaluate(with: login)
+        return loginPred.evaluate(with: login) ? (true, "") : (false, "Логин должен быть почтой")
     }
     
-    func isValidPassword() -> Bool {
-        func isLength() -> Bool {
-            return password.count > 5
+    func isValidPassword() -> (Bool, String) {
+        var passwordErrors = ""
+        func isLength() -> (Bool, String) {
+            return password.count > 5 ? (true, "") : (false, "Длина пароля меньше 6 символов")
         }
-        func isUppercase() -> Bool {
-            for char in password { if char.isUppercase { return true } }
-            return false
+        func isUppercase() -> (Bool, String) {
+            for char in password { if char.isUppercase { return (true, "") } }
+            return (false, "Как минимум одна заглавная в пароле")
         }
-        func isLowercase() -> Bool {
-            for char in password { if char.isLowercase { return true } }
-            return false
+        func isLowercase() -> (Bool, String) {
+            for char in password { if char.isLowercase { return (true, "") } }
+            return (false, "Как минимум одна строчная в пароле")
         }
-        func isNumber() -> Bool {
-            for char in password { if char.isNumber { return true } }
-            return false
+        func isNumber() -> (Bool, String) {
+            for char in password { if char.isNumber { return (true, "") } }
+            return (false, "Как минимум одна цифра в пароле")
         }
-
-        return isLength() && isUppercase() && isLowercase() && isNumber()
+        
+        let array = [isLength(), isUppercase(), isLowercase(), isNumber()]
+        for i in array { passwordErrors = i.0 ? passwordErrors : passwordErrors + i.1 + "\n"}
+        
+        return (passwordErrors == "", passwordErrors)
     }
     
-    if isValidLogin() { print("YES LOGIN")} else { print("NO LOGIN")}
-    if isValidPassword() { print("YES PASSWORD")} else { print("NO PASSWORD")}
+    error = "\(isValidLogin().1) \n\(isValidPassword().1)"
     
-    return ""
+    if isValidLogin().0 && isValidPassword().0 { return (true, "Успешная авторизация") }
+    
+    return (false, error)
 }
