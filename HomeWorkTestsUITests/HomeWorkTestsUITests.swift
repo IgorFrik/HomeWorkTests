@@ -24,10 +24,62 @@ final class HomeWorkTestsUITests: XCTestCase {
 
     func testExample() throws {
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
+        func test1() {
+            let app = XCUIApplication()
+            app.launch()
+            app.textFields["Login"].tap()
+            app.textFields["Login"].typeText("123")
+            let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+            element.tap()
+            app.secureTextFields["Password"].tap()
+            app.secureTextFields["Password"].typeText("321")
+            element.tap()
+            app/*@START_MENU_TOKEN@*/.staticTexts["Enter"]/*[[".buttons[\"Enter\"].staticTexts[\"Enter\"]",".staticTexts[\"Enter\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.alerts["Ошибка"].scrollViews.otherElements.buttons["Ok"].tap()
+        }
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        func test2() {
+            let app = XCUIApplication()
+            app.launch()
+            app.textFields["Login"].tap()
+            app.textFields["Login"].typeText("mail@mail.mail")
+            let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+            element.tap()
+            app.secureTextFields["Password"].tap()
+            app.secureTextFields["Password"].typeText("qw321")
+            app/*@START_MENU_TOKEN@*/.staticTexts["Enter"]/*[[".buttons[\"Enter\"].staticTexts[\"Enter\"]",".staticTexts[\"Enter\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.alerts["Ошибка"].scrollViews.otherElements.buttons["Ok"].tap()
+        }
+        
+        func test3() {
+            let app = XCUIApplication()
+            app.launch()
+            app.textFields["Login"].tap()
+            app.textFields["Login"].typeText("mail@mail.mail")
+            let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+            element.tap()
+            app.secureTextFields["Password"].tap()
+            app.secureTextFields["Password"].typeText("!")
+            app/*@START_MENU_TOKEN@*/.staticTexts["Enter"]/*[[".buttons[\"Enter\"].staticTexts[\"Enter\"]",".staticTexts[\"Enter\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.alerts["Ошибка"].scrollViews.otherElements.buttons["Ok"].tap()
+        }
+        
+        func testWork() {
+            let app = XCUIApplication()
+            app.launch()
+            app.textFields["Login"].tap()
+            app.textFields["Login"].typeText("mail@mail.mail")
+            let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+            element.tap()
+            app.secureTextFields["Password"].tap()
+            app.secureTextFields["Password"].typeText("QwErtY123")
+            app/*@START_MENU_TOKEN@*/.staticTexts["Enter"]/*[[".buttons[\"Enter\"].staticTexts[\"Enter\"]",".staticTexts[\"Enter\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.alerts["Успех"].scrollViews.otherElements.buttons["Ok"].tap()
+        }
+        test1()
+        test2()
+        test3()
+        testWork()
     }
 
     func testLaunchPerformance() throws {
