@@ -42,7 +42,7 @@ func loginModel(login: String, password: String) -> (Bool, String){
         return (passwordErrors == "", passwordErrors)
     }
     
-    error = "\(isValidLogin().1) \n\(isValidPassword().1)"
+    error = "\(isValidLogin().1)\n\(isValidPassword().1)"
     
     if isValidLogin().0 && isValidPassword().0 { return (true, "Успешная авторизация") }
     

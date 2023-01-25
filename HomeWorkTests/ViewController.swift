@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         if loginTextField.hasText && passwordTextField.hasText { enterButton.isEnabled = true } else { enterButton.isEnabled = false }
     }
-}
+ }
